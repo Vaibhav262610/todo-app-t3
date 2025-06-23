@@ -16,7 +16,7 @@ const Todos: FC<Props> = ({ todos }) => {
   // Function to create a new todo item
   const createTodo = (text: string) => {
     const id = (todoItems.at(-1)?.id || 0) + 1;
-    addTodo(text);
+    addTodo(id, text);
     setTodoItems((prev) => [...prev, { id: id, text, done: false }]);
   };
 

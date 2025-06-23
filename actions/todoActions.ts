@@ -15,9 +15,9 @@ export const getData = async () => {
   }
 };
 
-export const addTodo = async ( text: string) => {
+export const addTodo = async (id: number, text: string) => {
   try {
-    await db.insert(todo).values({ text });
+    await db.insert(todo).values({ id, text });
     revalidatePath("/");
   } catch (err) {
     console.error("Error in addTodo:", err);
