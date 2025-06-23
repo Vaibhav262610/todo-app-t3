@@ -15,11 +15,12 @@ import { Button } from '@/components/ui/button'
 import { signUp } from '@/server/users'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { Loader2Icon} from 'lucide-react'
 
 
 const SignUp = () => {
 
-
+    const [loading, setLoading] = useState(false)
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,7 +29,8 @@ const SignUp = () => {
 
 
      const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+      setLoading(true)  
+      e.preventDefault();
         console.log('Logging in:', name, email, password);
         await signUp(name,email,password);
         toast.success("Account Created Successfully!")
@@ -71,9 +73,11 @@ const SignUp = () => {
                           placeholder="Enter your password"
                         />
                       </div>
-                      <Button className="w-full" type="submit">
-                        Submit
-                      </Button>
+                      {!loading ? <Button className="w-full" type="submit">
+                        Create Account
+                      </Button>: <Button className="w-full" disabled type="submit">
+                        <Loader2Icon className='animate-spin'/> Creating Account
+                      </Button>}
                     </form>
         </CardContent>
         <CardFooter className='flex justify-center'>

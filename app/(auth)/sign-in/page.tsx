@@ -15,14 +15,17 @@ import Link from 'next/link';
 import { signIn } from '@/server/users';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { Loader2Icon } from 'lucide-react';
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true)
     e.preventDefault();
     console.log('Logging in:', email, password);
     await signIn(email, password);
@@ -58,9 +61,11 @@ const SignIn = () => {
               placeholder="Enter your password"
             />
           </div>
-          <Button className="w-full" type="submit">
-            Submit
-          </Button>
+          {!loading ? <Button className="w-full" type="submit">
+            Sign In
+            </Button>: <Button className="w-full" disabled type="submit">
+            <Loader2Icon className='animate-spin'/> Sign In
+            </Button>}
         </form>
       </CardContent>
       <CardFooter className="flex justify-center">

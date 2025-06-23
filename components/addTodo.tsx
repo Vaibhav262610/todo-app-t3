@@ -2,6 +2,7 @@
 import { ChangeEvent, FC, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { toast } from "react-toastify";
 
 interface Props {
   createTodo: (value: string) => void;
@@ -18,6 +19,11 @@ const AddTodo: FC<Props> = ({ createTodo }) => {
 
   // Event handler for adding a new todo
   const handleAdd = async () => {
+  if (!input.trim()) {
+    toast.error("Please enter something");
+    return;
+  }
+    toast("Todo Added")
     createTodo(input);
     setInput("");
   };
