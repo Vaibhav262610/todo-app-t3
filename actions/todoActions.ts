@@ -18,7 +18,7 @@ export const getData = async () => {
 export const addTodo = async (id: number, text: string) => {
   try {
     await db.insert(todo).values({ id, text });
-    revalidatePath("/");
+    revalidatePath("/dashboard");
   } catch (err) {
     console.error("Error in addTodo:", err);
     throw err;
@@ -28,7 +28,7 @@ export const addTodo = async (id: number, text: string) => {
 export const deleteTodo = async (id: number) => {
   try {
     await db.delete(todo).where(eq(todo.id, id));
-    revalidatePath("/");
+    revalidatePath("/dashboard");
   } catch (err) {
     console.error("Error in deleteTodo:", err);
     throw err;
@@ -43,7 +43,7 @@ export const toggleTodo = async (id: number) => {
         done: not(todo.done),
       })
       .where(eq(todo.id, id));
-    revalidatePath("/");
+    revalidatePath("/dashboard");
   } catch (err) {
     console.error("Error in toggleTodo:", err);
     throw err;
@@ -58,7 +58,7 @@ export const editTodo = async (id: number, text: string) => {
         text,
       })
       .where(eq(todo.id, id));
-    revalidatePath("/");
+    revalidatePath("/dashboard");
   } catch (err) {
     console.error("Error in editTodo:", err);
     throw err;

@@ -6,8 +6,12 @@ import Todos from "@/components/todos";
 
 const Dashboard = async () => {
     const data = await getData();
-    console.log(data,"dashboard data");
-    console.log("hello");
+    if(data){
+        console.log(data,"dashboard data");
+    }else{
+        console.log("dashboard data not fetched");
+    }
+    // console.log("hello");
      
   return (
     <div className='flex justify-center items-center flex-col'>
