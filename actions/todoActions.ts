@@ -9,8 +9,9 @@ export const getData = async () => {
   return data;
 };
 
-export const addTodo = async ( text: string) => {
+export const addTodo = async (id: number, text: string) => {
   await db.insert(todo).values({
+    id: id,
     text: text,
   });
 };
