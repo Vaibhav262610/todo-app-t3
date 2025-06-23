@@ -8,8 +8,7 @@ const Dashboard = async () => {
     const data = await getData();
     console.log(data,"dashboard data");
     console.log("hello");
-    
-    
+     
   return (
     <div className='flex justify-center items-center flex-col'>
         <div className='flex flex-col w-full'>
