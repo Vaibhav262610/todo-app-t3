@@ -3,26 +3,15 @@
 import React, { useState } from 'react'
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { auth } from '@/lib/auth'
 import { signUp } from '@/server/users'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'

@@ -12,7 +12,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { auth } from '@/lib/auth';
 import { signIn } from '@/server/users';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
