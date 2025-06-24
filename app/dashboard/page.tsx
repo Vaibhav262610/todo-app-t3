@@ -3,9 +3,10 @@ import Link from 'next/link'
 import React from 'react'
 import { getData } from "@/actions/todoActions";
 import Todos from "@/components/todos";
+import { todoType } from "@/types/todoTypes";
 
 const Dashboard = async () => {
-    let data;
+    let data: todoType[] = [];
     try {
         data = await getData();
         if(data){

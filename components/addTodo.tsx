@@ -30,7 +30,7 @@ const AddTodo: FC<Props> = ({ createTodo }) => {
       await createTodo(input);
       toast.success("Todo Added");
       setInput("");
-    } catch (error) {
+    } catch {
       toast.error("Failed to add todo");
     } finally {
       setIsLoading(false);
