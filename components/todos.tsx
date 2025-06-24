@@ -4,6 +4,7 @@ import { todoType } from "@/types/todoTypes";
 import Todo from "./todo";
 import AddTodo from "./addTodo";
 import { addTodo, deleteTodo, editTodo, toggleTodo } from "@/actions/todoActions";
+import { useRouter } from "next/navigation";
 
 interface Props {
   todos: todoType[];
@@ -12,35 +13,44 @@ interface Props {
 const Todos: FC<Props> = ({ todos }) => {
   // State to manage the list of todo items
   const [todoItems, setTodoItems] = useState<todoType[]>(todos);
+  const router = useRouter();
 
   // Function to create a new todo item
-  const createTodo = (text: string) => {
-    const id = (todoItems.at(-1)?.id || 0) + 1;
-    addTodo(id, text);
-    setTodoItems((prev) => [...prev, { id: id, text, done: false }]);
+  const createTodo = async (text: string) => {
+    await addTodo(text);
+    // Refresh the page to get updated data from server
+    router.refresh();
   };
 
   // Function to change the text of a todo item
-  const changeTodoText = (id: number, text: string) => {
+  const changeTodoText = async (id: number, text: string) => {
     setTodoItems((prev) =>
       prev.map((todo) => (todo.id === id ? { ...todo, text } : todo))
     );
-    editTodo(id, text);
+    await editTodo(id, text);
+    router.refresh();
   };
 
   // Function to toggle the "done" status of a todo item
-  const toggleIsTodoDone = (id: number) => {
+  const toggleIsTodoDone = async (id: number) => {
     setTodoItems((prev) =>
       prev.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
     );
-    toggleTodo(id);
+    await toggleTodo(id);
+    router.refresh();
   };
 
   // Function to delete a todo item
-  const deleteTodoItem = (id: number) => {
+  const deleteTodoItem = async (id: number) => {
     setTodoItems((prev) => prev.filter((todo) => todo.id !== id));
-    deleteTodo(id);
+    await deleteTodo(id);
+    router.refresh();
   };
+
+  // Update local state when props change (when page refreshes)
+  if (JSON.stringify(todos) !== JSON.stringify(todoItems)) {
+    setTodoItems(todos);
+  }
 
   // Rendering the Todo List component
   return (

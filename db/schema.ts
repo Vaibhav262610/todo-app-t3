@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, serial } from "drizzle-orm/pg-core";
 
 
 export const user = pgTable("user", {
@@ -52,8 +52,9 @@ export const todo = pgTable("todo", {
   id: integer("id").primaryKey(),
   text: text("text").notNull(),
   done: boolean("done").default(false).notNull(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
 });
 
 
 
-export const schema = { user , session , verification , account} 
+export const schema = { user , session , verification , account, todo }

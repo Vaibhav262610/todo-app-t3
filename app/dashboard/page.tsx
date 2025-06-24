@@ -5,11 +5,17 @@ import { getData } from "@/actions/todoActions";
 import Todos from "@/components/todos";
 
 const Dashboard = async () => {
-    const data = await getData();
-    if(data){
-        console.log(data,"dashboard data");
-    }else{
-        console.log("dashboard data not fetched");
+    let data;
+    try {
+        data = await getData();
+        if(data){
+            console.log(data,"dashboard data");
+        }else{
+            console.log("dashboard data not fetched");
+        }
+    } catch (error) {
+        console.error("Error fetching todos:", error);
+        data = [];
     }
     // console.log("hello");
      
@@ -22,7 +28,7 @@ const Dashboard = async () => {
                     <SignOut />
                 </Link>
             </div>
-            <Todos todos={data} />
+            <Todos todos={data || []} />
         </div>
     </div>
   )
